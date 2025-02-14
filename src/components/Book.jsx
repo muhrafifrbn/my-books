@@ -3,16 +3,14 @@ export default function Book({ dataBook, handleClick, statusButtonEdit }) {
   let newButton = "";
   if (!statusButtonEdit) {
     newButton = (
-      <li key={1} className="flex justify-end gap-2 mt-3 *:text-black">
-        <button onClick={() => handleClick.changeStatus(dataBook)} className="px-5 lg:px-3 rounded-md bg-green-400">
-          Done
-        </button>
-        <button onClick={() => handleClick.edit(dataBook)} className="px-5 lg:px-3 rounded-md bg-yellow-400">
-          Edit
-        </button>
-        <button onClick={() => handleClick.delete(dataBook)} className="px-5 lg:px-3 rounded-md bg-red-400">
-          Delete
-        </button>
+      <li key={1} className="flex justify-end gap-2 mt-3 ">
+        {dataBook.status ? (
+          <Button teks="Not Finished Reading" handelButton={() => handleClick.changeStatus(dataBook)} className="px-5 lg:px-3 rounded-md bg-green-400 text-black" />
+        ) : (
+          <Button teks="Complete Reading" handelButton={() => handleClick.changeStatus(dataBook)} className="px-5 lg:px-3 rounded-md bg-blue-500 text-white" />
+        )}
+        <Button teks="Edit" handelButton={() => handleClick.edit(dataBook)} className="px-5 lg:px-3 rounded-md bg-yellow-400" />
+        <Button teks="Delete" handelButton={() => handleClick.delete(dataBook)} className="px-5 lg:px-3 rounded-md bg-red-400" />
       </li>
     );
   } else {
@@ -43,5 +41,13 @@ export default function Book({ dataBook, handleClick, statusButtonEdit }) {
         {newButton}
       </ul>
     </div>
+  );
+}
+
+function Button({ teks, className, handelButton }) {
+  return (
+    <button onClick={handelButton} className={className}>
+      {teks}
+    </button>
   );
 }
